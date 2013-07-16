@@ -21,8 +21,7 @@ $channel_permit_update=0;
 //  channel icons in a NAME|icon format
 // e.g. BBC One|http://www.lyngsat-logo.com/logo/tv/bb/bbc_one.jpg
 
-//$load_icons = fopen("http://supplement.xmltv.org/tv_grab_uk_rt/channel_icons", "r");
-$load_icons=fopen("/tmp/channel_icons","r");
+$load_icons = fopen("http://supplement.xmltv.org/tv_grab_uk_rt/channel_icons", "r");
 if ($load_icons) {
     while (($buffer = fgets($load_icons, 4096)) !== false) {
 	@list($ch_name,$ch_icon)=explode("|",$buffer);
@@ -238,7 +237,7 @@ function chan_update($chan_filename,$ch_icon) {
 	$chk_json['icon']="$ch_icon";
 	$json_new=prettyPrint(json_encode($chk_json));
 	$json_new=str_replace("\/","/",$json_new);
-	$out_chan=fopen("/tmp/channel_updates/$chan_filename", "w");
+	$out_chan=fopen($tvh_user_home."channels/".$chan_filename, "w");
 	fwrite($out_chan, $json_new);
 	fclose($out_chan);
 	} else {
